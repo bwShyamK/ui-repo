@@ -1,65 +1,159 @@
-import Image from "next/image";
+'use client'
+import { Avatar, AvatarFallback } from '@/components/ui/avatar'
+import { cn } from '@/lib/utils'
+import {
+  ArrowLeft02Icon,
+  CheckmarkCircle02Icon,
+  Clock01Icon,
+  Share01Icon,
+  Stamp01Icon,
+} from '@hugeicons/core-free-icons'
+import { HugeiconsIcon } from '@hugeicons/react'
+import React, { useState } from 'react'
 
-export default function Home() {
+type Props = {}
+
+export default function Page({}: Props) {
+  const [participants] = useState([
+    { id: '1', name: 'You', status: 'paid', avatar: '👤' },
+    { id: '2', name: 'Olabode', status: 'paid', avatar: '🧑‍🍳' },
+    { id: '3', name: 'Lukmon', status: 'paid', avatar: '🧑' },
+    { id: '4', name: 'Hope', status: 'unpaid', avatar: '👩' },
+    { id: '5', name: 'Dara', status: 'unpaid', avatar: '👨' },
+  ])
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="bg-[#e5e7ea] min-h-svh flex items-center justify-center  overflow-auto">
+      <div className="max-w-lg px-4 bg-[#f8f9fc] pb-12 shadow mx-auto w-full">
+        {/* Navbar */}
+        <div className=" py-4 mt-2 flex items-center gap-3 justify-between">
+          <button className="bg-white rounded-full p-1.5">
+            <HugeiconsIcon icon={ArrowLeft02Icon} size={24} />
+          </button>
+          <p className="font-medium">Payment Status</p>
+          <button className="bg-white rounded-full p-1.5">
+            <HugeiconsIcon icon={Share01Icon} size={24} />
+          </button>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        <div className="relative pt-8">
+          <div className="mt-3 w-full absolute top-0 h-[100px] from-[#636363] rounded-2xl pt-4 to-[#333333] bg-linear-to-b">
+            <div className="max-w-[92%] mx-auto h-6 rounded-2xl bg-black w-full" />
+          </div>
+          <div className="relative max-w-[84%] mx-auto   z-20 bg-white rounded shadow  ">
+            <div className="absolute inset-0 w-full  h-10 z-10 top-0 bg-linear-to-b from-black " />
+            <div className="py-2 px-3">
+              <p className="py-1.5 mt-3 text-center  border-y custom-dash mx-auto px-2">
+                Trip Invoice - Japan Summer 2025
+              </p>
+              <div className="mt-3 text-sm py-3 space-y-1 border-b ">
+                <div className="flex items-center justify-between">
+                  <span className="text-muted-foreground">Total </span>
+                  <span className="font-medium">$30,000</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-muted-foreground">Per Person </span>
+                  <span className="font-medium">$6,000</span>
+                </div>
+              </div>
+              <div className="mt-4">
+                {participants.map((item, index) => {
+                  return (
+                    <div key={index} className=" border-b flex items-center">
+                      <div className="border-r py-2 px-2">
+                        <Avatar>
+                          <AvatarFallback>{item.avatar}</AvatarFallback>
+                        </Avatar>
+                      </div>
+                      <span className="pl-2">{item.name}</span>
+                      <span className="w-max ml-auto text-sm border rounded-md px-1 py-0.5 flex gap-1">
+                        <HugeiconsIcon
+                          icon={
+                            item.status === 'paid'
+                              ? CheckmarkCircle02Icon
+                              : Clock01Icon
+                          }
+                          size={20}
+                          className={cn({
+                            'fill-green-400 text-white': item.status === 'paid',
+                            'fill-orange-400 text-white':
+                              item.status === 'unpaid',
+                          })}
+                        />
+
+                        <span className=" capitalize">{item.status}</span>
+                      </span>
+                    </div>
+                  )
+                })}
+              </div>
+
+              <div className="p-3 border rounded-lg mt-4">
+                <div className="flex items-center justify-between gap-3">
+                  <p className="font-normal">Payment Status</p>
+                  <p className="font-medium uppercase text-xl">UNPAID</p>
+                </div>
+                <div className=" flex  items-center mt-3">
+                  <div className="bg-white rounded-full p-1 shadow">
+                    <HugeiconsIcon
+                      icon={CheckmarkCircle02Icon}
+                      size={20}
+                      className="fill-green-500 text-white"
+                    />
+                  </div>
+                  <div className="h-2 w-full bg-black" />
+                  <div className="bg-white rounded-full p-1 shadow">
+                    <HugeiconsIcon
+                      icon={CheckmarkCircle02Icon}
+                      size={20}
+                      className="fill-green-500 text-white"
+                    />
+                  </div>
+                  <div className="h-2 w-full bg-black" />
+                  <div className="bg-white rounded-full p-1 shadow">
+                    <HugeiconsIcon
+                      icon={CheckmarkCircle02Icon}
+                      size={20}
+                      className="fill-green-500 text-white"
+                    />
+                  </div>
+                  <div className="h-2 w-full bg-black" />
+                  <div className="bg-white rounded-full p-2 shadow">
+                    <div className="bg-black size-[18px] rounded-full" />
+                  </div>
+                  <div className="h-2 w-full bg-secondary" />
+                  <div className="bg-white rounded-full p-1 shadow">
+                    <HugeiconsIcon icon={Stamp01Icon} size={20} className="" />
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-4 pb-4  gap-4 flex flex-wrap sm:flex-nowrap items-center justify-between">
+                <button className="bg-[#2e3140] w-full rounded-full text-sm text-white px-6 py-2">
+                  Send Reminder
+                </button>
+                <button className="bg-white w-full shadow text-sm rounded-full px-6 py-2">
+                  Download Invoice
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
-      </main>
+
+        <div className="border-b mt-8" />
+
+        <div className="flex px-3 items-center justify-between gap-3 pt-4">
+          <p className="text-muted-foreground">Payment Method</p>
+          <div className="flex w-max items-center gap-2 ">
+            <p className="w-max ml-auto text-muted-foreground">
+              Visa Ending 2986
+            </p>
+            <div className="h-8 w-10 rounded-sm bg-blue-800" />
+          </div>
+        </div>
+        <button className="py-2 sm:py-4 px-4 text-lg mt-4 w-full rounded-2xl bg-[#2e3140] text-white">
+          Pay Now
+        </button>
+      </div>
     </div>
-  );
+  )
 }
